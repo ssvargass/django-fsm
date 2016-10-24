@@ -7,6 +7,7 @@ import sys
 from functools import wraps
 
 from django.db import models
+from django.apps import apps
 from django.db.models.signals import class_prepared
 from django.utils.functional import curry
 from django_fsm.signals import pre_transition, post_transition
@@ -18,7 +19,7 @@ try:
         app = django_apps.get_app_config(app_label)
         return app.get_model(model_name)
 except ImportError:
-    from django.db.models.loading import get_model
+    from django.apps import get_model
 
 
 __all__ = ['TransitionNotAllowed', 'ConcurrentTransition',
